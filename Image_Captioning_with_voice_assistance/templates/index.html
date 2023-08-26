@@ -1,0 +1,84 @@
+
+<html>
+<head>
+    <title>Image Captioning</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style type="text/css">
+        .heading {
+            font-weight: 100;
+            font-size: 3em;
+            text-align: center;
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+        .form-label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .file-input {
+            margin-bottom: 20px;
+        }
+        .result-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .result-caption {
+            font-size: 18px;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        .audio-player {
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">Image Captioning</h1>
+
+        <div class="form-container">
+            <form class="form-inline" enctype="multipart/form-data" action="/" method="POST">
+                <div class="form-group file-input">
+                    <label class="form-label">Upload an Image:</label>
+                    <input type="file" class="form-control" name="image" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        {% if results %}
+            <div class="result-container">
+                <img src="{{results.image}}" class="result-image">
+                <p class="result-caption"><b>Generated Caption:</b> {{results.description}}</p>
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="{{ url_for('static', filename=results['audio_filename']) }}" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
